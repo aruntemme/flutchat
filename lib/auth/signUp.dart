@@ -129,6 +129,9 @@ class _SignUpPageState extends State<SignUpPage>
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: <Widget>[
+                  SizedBox(
+                    height: 150,
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                     child: TextFormBuilder(
@@ -183,7 +186,7 @@ class _SignUpPageState extends State<SignUpPage>
                       },
                     ),
                   ),
-                  SizedBox(height: 60.0),
+                  SizedBox(height: 40.0),
                   AnimatedBuilder(
                     animation: _animation,
                     builder: (BuildContext context, Widget child) {
