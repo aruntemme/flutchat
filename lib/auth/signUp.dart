@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutchat/Layout/verificationDialog.dart';
-import 'package:flutchat/consts/theme.dart';
 
 import '../Layout/TextFormBuilder.dart';
 import 'auth.dart';
@@ -211,7 +208,7 @@ class _SignUpPageState extends State<SignUpPage>
           child: Visibility(
             visible: isLoading,
             child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation(Colors.deepOrange),
+              valueColor: AlwaysStoppedAnimation(Colors.deepPurpleAccent),
             ),
           ),
         ),
@@ -234,8 +231,8 @@ class _SignUpPageState extends State<SignUpPage>
             borderRadius: BorderRadius.circular(30.0),
             gradient: LinearGradient(
               colors: [
-                fromHex('#ff5f6d'),
-                fromHex('#ffc371d'),
+                fromHex('#0f1f49'),
+                fromHex('#ffffff'),
               ],
             ),
           ),
