@@ -120,7 +120,7 @@ class _SignUpPageState extends State<SignUpPage>
           ),
         ),
         Positioned(
-          top: 0.4 * height,
+          top: 80,
           left: 0,
           right: 0,
           child: Opacity(
@@ -129,8 +129,16 @@ class _SignUpPageState extends State<SignUpPage>
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: <Widget>[
+                  Text(
+                    "FlutChat",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 30,
+                    ),
+                  ),
                   SizedBox(
-                    height: 150,
+                    height: 370,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -234,8 +242,8 @@ class _SignUpPageState extends State<SignUpPage>
             borderRadius: BorderRadius.circular(30.0),
             gradient: LinearGradient(
               colors: [
-                fromHex('#0f1f49'),
-                fromHex('#ffffff'),
+                fromHex('#000000'),
+                fromHex('#000000'),
               ],
             ),
           ),
