@@ -101,129 +101,132 @@ class _SignUpPageState extends State<SignUpPage>
     height = MediaQuery.of(context).size.height;
     return Scaffold(
       key: scaffoldKey,
+      resizeToAvoidBottomPadding: true,
       resizeToAvoidBottomInset: false,
       body: _buildForm(),
     );
   }
 
   _buildForm() {
-    return Stack(
-      children: <Widget>[
-        Positioned.fill(
-          child: Opacity(
-            opacity: isLoading ? 0.6 : 1.0,
-            child: Image.asset(
-              "assets/giphy.gif",
-              fit: BoxFit.cover,
-              height: height,
-            ),
-          ),
-        ),
-        Positioned(
-          top: 80,
-          left: 0,
-          right: 0,
-          child: Opacity(
-            opacity: isLoading ? 0.6 : 1.0,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    "FlutChat",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 30,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 370,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    child: TextFormBuilder(
-                      textStyle: TextStyle(color: Colors.grey),
-                      hintText: "Email",
-                      controller: emailController,
-                      keybordType: TextInputType.emailAddress,
-                      onSaved: (val) {
-                        email = val;
-                      },
-                      validator: (val) {
-                        if (!r.hasMatch(val)) {
-                          return "Enter a valid Email";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    child: TextFormBuilder(
-                      textStyle: TextStyle(color: Colors.grey),
-                      obscureText: obscureText,
-                      suffixWidget: IconButton(
-                        icon: Icon(currentIcon),
-                        onPressed: () {
-                          setState(() {
-                            obscureText = !obscureText;
-                            if (obscureText)
-                              currentIcon = Icons.visibility_off;
-                            else
-                              currentIcon = Icons.visibility;
-                          });
-                        },
-                      ),
-                      controller: passwordController,
-                      hintText: "Password",
-                      keybordType: TextInputType.visiblePassword,
-                      onSaved: (val) {
-                        setState(() {
-                          password = val;
-                        });
-                      },
-                      validator: (val) {
-                        if (val.length < 6) {
-                          return "Enter more than 6 characters";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 40.0),
-                  AnimatedBuilder(
-                    animation: _animation,
-                    builder: (BuildContext context, Widget child) {
-                      return Transform(
-                        child: child,
-                        transform: Matrix4.translationValues(
-                            _animation.value * width, 0, 0),
-                      );
-                    },
-                    child: _buildRaisedButton(),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  _buildHelperText(),
-                ],
+    return SingleChildScrollView(
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: Opacity(
+              opacity: isLoading ? 0.6 : 1.0,
+              child: Image.asset(
+                "assets/giphy.gif",
+                fit: BoxFit.cover,
+                height: height,
               ),
             ),
           ),
-        ),
-        Center(
-          child: Visibility(
-            visible: isLoading,
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation(Colors.deepPurpleAccent),
+          Positioned(
+            top: 80,
+            left: 0,
+            right: 0,
+            child: Opacity(
+              opacity: isLoading ? 0.6 : 1.0,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "FlutChat",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 30,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 370,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                      child: TextFormBuilder(
+                        textStyle: TextStyle(color: Colors.grey),
+                        hintText: "Email",
+                        controller: emailController,
+                        keybordType: TextInputType.emailAddress,
+                        onSaved: (val) {
+                          email = val;
+                        },
+                        validator: (val) {
+                          if (!r.hasMatch(val)) {
+                            return "Enter a valid Email";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                      child: TextFormBuilder(
+                        textStyle: TextStyle(color: Colors.grey),
+                        obscureText: obscureText,
+                        suffixWidget: IconButton(
+                          icon: Icon(currentIcon),
+                          onPressed: () {
+                            setState(() {
+                              obscureText = !obscureText;
+                              if (obscureText)
+                                currentIcon = Icons.visibility_off;
+                              else
+                                currentIcon = Icons.visibility;
+                            });
+                          },
+                        ),
+                        controller: passwordController,
+                        hintText: "Password",
+                        keybordType: TextInputType.visiblePassword,
+                        onSaved: (val) {
+                          setState(() {
+                            password = val;
+                          });
+                        },
+                        validator: (val) {
+                          if (val.length < 6) {
+                            return "Enter more than 6 characters";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 40.0),
+                    AnimatedBuilder(
+                      animation: _animation,
+                      builder: (BuildContext context, Widget child) {
+                        return Transform(
+                          child: child,
+                          transform: Matrix4.translationValues(
+                              _animation.value * 300, 0, 0),
+                        );
+                      },
+                      child: _buildRaisedButton(),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _buildHelperText(),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ],
+          Center(
+            child: Visibility(
+              visible: isLoading,
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation(Colors.deepPurpleAccent),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

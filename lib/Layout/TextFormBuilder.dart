@@ -24,7 +24,7 @@ class TextFormBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(30.0),
+      borderRadius: BorderRadius.circular(10.0),
       child: Container(
         color: Colors.white,
         child: TextFormField(
@@ -40,6 +40,21 @@ class TextFormBuilder extends StatelessWidget {
             fontFamily: AppTheme.fontFamily,
             color: Colors.black,
           ),
+          // decoration: InputDecoration(
+          //   hintStyle: textStyle != null ? textStyle : TextStyle(),
+          //   labelText: hintText,
+          //   suffixIcon: suffixWidget != null ? suffixWidget : null,
+          //   labelStyle: TextStyle(fontSize: 10, color: Colors.blueGrey[400]),
+          //   enabledBorder: OutlineInputBorder(
+          //     borderRadius: BorderRadius.circular(10),
+          //     borderSide: BorderSide(
+          //       color: Colors.blueGrey[600],
+          //     ),
+          //   ),
+          //   focusedBorder: OutlineInputBorder(
+          //       borderRadius: BorderRadius.circular(10),
+          //       borderSide: BorderSide(color: Colors.black)),
+          // ),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.all(20.0),
             fillColor: Colors.white,
@@ -47,6 +62,9 @@ class TextFormBuilder extends StatelessWidget {
             hintStyle: textStyle != null ? textStyle : TextStyle(),
             suffixIcon: suffixWidget != null ? suffixWidget : null,
             border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Colors.black)),
           ),
         ),
       ),
