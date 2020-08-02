@@ -56,20 +56,6 @@ class _DrawerBuilderState extends State<DrawerBuilder> {
           _buildThemeSettingsTile(context),
           Divider(),
           ListTile(
-            leading: Icon(
-              Mdi.logout,
-            ),
-            title: Text("Sign out"),
-            onTap: () {
-              showDialog(
-                context: context,
-                barrierDismissible: true,
-                builder: (context) => SignOutConfirmationDialog(),
-              );
-            },
-          ),
-          Divider(),
-          ListTile(
             leading: Icon(Mdi.messageAlertOutline),
             title: Text('Want an feature? Suggest the developer'),
             onTap: () {
@@ -86,6 +72,20 @@ class _DrawerBuilderState extends State<DrawerBuilder> {
             onTap: () {
               _launchURL("asterJoules@gmail.com", "Suggestion of an feature",
                   "Enter here");
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(
+              Mdi.logout,
+            ),
+            title: Text("Sign out"),
+            onTap: () {
+              showDialog(
+                context: context,
+                barrierDismissible: true,
+                builder: (context) => SignOutConfirmationDialog(),
+              );
             },
           ),
           Divider(),

@@ -13,6 +13,7 @@ import 'package:flutchat/message/messageRepo.dart';
 import 'package:flutchat/user/user.dart';
 import 'package:flutchat/user/userInfoPage.dart';
 import 'groupModel.dart';
+import 'package:flutchat/Layout/BottomNavBar.dart';
 import './Layout/DrawerBuilder.dart';
 import 'package:shimmer/shimmer.dart';
 import './message/searchPage.dart';
@@ -55,6 +56,7 @@ class _MainPageState extends State<MainPage> {
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
       drawer: DrawerBuilder(),
+      bottomNavigationBar: BottomNavBar(),
       appBar: AppBar(
         backgroundColor: Theme.of(context).accentColor,
         elevation: 0,
@@ -65,7 +67,7 @@ class _MainPageState extends State<MainPage> {
         ),
         leading: IconButton(
           icon: Icon(
-            Mdi.hamburger,
+            Mdi.menuRightOutline,
             color: AppTheme.iconColor,
           ),
           onPressed: () {
@@ -490,7 +492,6 @@ class _MainPageState extends State<MainPage> {
   _buildMainWidget(QuerySnapshot data) {
     return ListView.separated(
       separatorBuilder: (context, index) {
-        //TODO: Set the divider here
         return Container(
           height: 1,
           width: double.infinity,

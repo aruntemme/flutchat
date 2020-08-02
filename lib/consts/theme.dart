@@ -10,6 +10,7 @@ class AppTheme {
   static Brightness brightness = Brightness.light;
 
   static Color accentColor = Colors.blue;
+  static Color defaultColor = Colors.white;
   static Color mainColor = Colors.blue;
   static Color primarySwatch = Colors.blue;
   static Color linkColor = Colors.blue;
@@ -44,11 +45,13 @@ class AppTheme {
     mainColor = color;
     primarySwatch = color;
     linkColor = color;
+    defaultColor = color;
     isSeen = color;
   }
 
   static toDarkMode() {
     brightness = Brightness.dark;
+    defaultColor = Colors.black;
     textColor = Colors.white;
     canvasColor = Colors.black;
     iconColor = Colors.black;
@@ -64,6 +67,7 @@ class AppTheme {
 
   static toLightMode() {
     brightness = Brightness.light;
+    defaultColor = Colors.black;
     textColor = Colors.black;
     canvasColor = Colors.white;
     iconColor = Colors.black;

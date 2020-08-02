@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutchat/Layout/verificationDialog.dart';
-
+import 'package:get/get.dart';
 import '../Layout/TextFormBuilder.dart';
 import 'auth.dart';
 import '../mainPage.dart';
@@ -34,12 +35,15 @@ class _SignUpPageState extends State<SignUpPage>
 
   var obscureText = true;
   IconData currentIcon = Icons.visibility_off;
+
   TextEditingController emailController, passwordController;
 
   @override
   void initState() {
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+
     authService = AuthService(scaffoldKey);
     super.initState();
 
@@ -101,132 +105,129 @@ class _SignUpPageState extends State<SignUpPage>
     height = MediaQuery.of(context).size.height;
     return Scaffold(
       key: scaffoldKey,
-      resizeToAvoidBottomPadding: true,
       resizeToAvoidBottomInset: false,
       body: _buildForm(),
     );
   }
 
   _buildForm() {
-    return SingleChildScrollView(
-      child: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: Opacity(
-              opacity: isLoading ? 0.6 : 1.0,
-              child: Image.asset(
-                "assets/giphy.gif",
-                fit: BoxFit.cover,
-                height: height,
-              ),
+    return Stack(
+      children: <Widget>[
+        Positioned.fill(
+          child: Opacity(
+            opacity: isLoading ? 0.6 : 1.0,
+            child: Image.asset(
+              "assets/giphy.gif",
+              fit: BoxFit.cover,
+              height: height,
             ),
           ),
-          Positioned(
-            top: 80,
-            left: 0,
-            right: 0,
-            child: Opacity(
-              opacity: isLoading ? 0.6 : 1.0,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      "FlutChat",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 30,
-                      ),
+        ),
+        Positioned(
+          top: 80,
+          left: 0,
+          right: 0,
+          child: Opacity(
+            opacity: isLoading ? 0.6 : 1.0,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    "FlutChat",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 30,
                     ),
-                    SizedBox(
-                      height: 370,
+                  ),
+                  SizedBox(
+                    height: 250,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                    child: TextFormBuilder(
+                      textStyle: TextStyle(color: Colors.grey),
+                      hintText: "Email",
+                      controller: emailController,
+                      keybordType: TextInputType.emailAddress,
+                      onSaved: (val) {
+                        email = val;
+                      },
+                      validator: (val) {
+                        if (!r.hasMatch(val)) {
+                          return "Enter a valid Email";
+                        }
+                        return null;
+                      },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: TextFormBuilder(
-                        textStyle: TextStyle(color: Colors.grey),
-                        hintText: "Email",
-                        controller: emailController,
-                        keybordType: TextInputType.emailAddress,
-                        onSaved: (val) {
-                          email = val;
-                        },
-                        validator: (val) {
-                          if (!r.hasMatch(val)) {
-                            return "Enter a valid Email";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: TextFormBuilder(
-                        textStyle: TextStyle(color: Colors.grey),
-                        obscureText: obscureText,
-                        suffixWidget: IconButton(
-                          icon: Icon(currentIcon),
-                          onPressed: () {
-                            setState(() {
-                              obscureText = !obscureText;
-                              if (obscureText)
-                                currentIcon = Icons.visibility_off;
-                              else
-                                currentIcon = Icons.visibility;
-                            });
-                          },
-                        ),
-                        controller: passwordController,
-                        hintText: "Password",
-                        keybordType: TextInputType.visiblePassword,
-                        onSaved: (val) {
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                    child: TextFormBuilder(
+                      textStyle: TextStyle(color: Colors.grey),
+                      obscureText: obscureText,
+                      suffixWidget: IconButton(
+                        icon: Icon(currentIcon),
+                        onPressed: () {
                           setState(() {
-                            password = val;
+                            obscureText = !obscureText;
+                            if (obscureText)
+                              currentIcon = Icons.visibility_off;
+                            else
+                              currentIcon = Icons.visibility;
                           });
                         },
-                        validator: (val) {
-                          if (val.length < 6) {
-                            return "Enter more than 6 characters";
-                          }
-                          return null;
-                        },
                       ),
-                    ),
-                    SizedBox(height: 40.0),
-                    AnimatedBuilder(
-                      animation: _animation,
-                      builder: (BuildContext context, Widget child) {
-                        return Transform(
-                          child: child,
-                          transform: Matrix4.translationValues(
-                              _animation.value * 300, 0, 0),
-                        );
+                      controller: passwordController,
+                      hintText: "Password",
+                      keybordType: TextInputType.visiblePassword,
+                      onSaved: (val) {
+                        setState(() {
+                          password = val;
+                        });
                       },
-                      child: _buildRaisedButton(),
+                      validator: (val) {
+                        if (val.length < 6) {
+                          return "Enter more than 6 characters";
+                        }
+                        return null;
+                      },
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    _buildHelperText(),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 60.0),
+                  AnimatedBuilder(
+                    animation: _animation,
+                    builder: (BuildContext context, Widget child) {
+                      return Transform(
+                        child: child,
+                        transform: Matrix4.translationValues(
+                            _animation.value * 300, 0, 0),
+                      );
+                    },
+                    child: _buildRaisedButton(),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  _buildHelperText(),
+                ],
               ),
             ),
           ),
-          Center(
-            child: Visibility(
-              visible: isLoading,
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(Colors.deepPurpleAccent),
-              ),
+        ),
+        Center(
+          child: Visibility(
+            visible: isLoading,
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation(Colors.yellow),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -283,7 +284,14 @@ class _SignUpPageState extends State<SignUpPage>
       }
     } else {
       scaffoldKey.currentState.showSnackBar(SnackBar(
+        //  behavior: SnackBarBehavior.floating,
         content: Text("Enter valid Details"),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: () {
+            // Some code to undo the change.
+          },
+        ),
       ));
     }
   }
