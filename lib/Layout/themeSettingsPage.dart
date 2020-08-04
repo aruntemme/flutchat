@@ -191,10 +191,10 @@ class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
                     _changeValueOfMainColorInSharedPrefs(2);
                   });
                 }),
-                _buildColorTile(Colors.deepPurple, 3, () {
+                _buildColorTile(Colors.yellow, 3, () {
                   setState(() {
                     currentColorIndex = 3;
-                    changeColor(Colors.deepPurple);
+                    changeColor(Colors.yellow);
                     _changeValueOfMainColorInSharedPrefs(3);
                   });
                 }),

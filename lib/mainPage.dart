@@ -190,7 +190,9 @@ class _MainPageState extends State<MainPage> {
                     width: double.infinity,
                     height: 0.1 * height,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(50),
+                          bottomRight: Radius.circular(50)),
                       color: _getNewMessageColor(message),
                     ),
                     child: Stack(
@@ -363,10 +365,9 @@ class _MainPageState extends State<MainPage> {
         width: double.infinity,
         height: 0.1 * height,
         decoration: BoxDecoration(
-            border: Border.all(),
-            color: AppTheme.accentColor,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+          border: Border.all(),
+          color: Colors.transparent,
+        ),
         child: Stack(
           children: <Widget>[
             Positioned.fill(

@@ -98,9 +98,9 @@ getColorFromInt(int val) {
   if (val == 0) {
     return Colors.blue;
   } else if (val == 1) {
-    return Colors.green;
+    return Colors.cyan;
   } else if (val == 2) {
-    return Colors.deepOrange;
+    return Colors.yellow;
   } else {
     return Colors.deepPurple;
   }

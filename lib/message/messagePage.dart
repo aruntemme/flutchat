@@ -137,7 +137,7 @@ class _MessagePageState extends State<MessagePage>
           title: Hero(
             tag: widget.user.userName,
             child: Material(
-              color: AppTheme.accentColor,
+              color: Colors.transparent,
               child: Text(
                 "${widget.user.userName}",
                 overflow: TextOverflow.ellipsis,
