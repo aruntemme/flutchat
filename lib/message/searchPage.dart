@@ -51,8 +51,10 @@ class _SearchPageState extends State<SearchPage> {
     width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: AppTheme.defaultColor,
       key: scaffoldKey,
       floatingActionButton: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           FloatingActionButton.extended(
@@ -68,16 +70,16 @@ class _SearchPageState extends State<SearchPage> {
                 Visibility(
                   visible: fabIndexSelected == 0,
                   child: Icon(
-                    Mdi.progressCheck,
+                    Mdi.checkboxMarkedCircleOutline,
                   ),
                 ),
                 SizedBox(
                   width: 5.0,
                 ),
-                Text("Name"),
+                Text("UserName"),
               ],
             ),
-            backgroundColor: Colors.black,
+            backgroundColor: AppTheme.accentColor,
           ),
           SizedBox(
             height: 10,
@@ -95,7 +97,7 @@ class _SearchPageState extends State<SearchPage> {
                 Visibility(
                   visible: fabIndexSelected == 1,
                   child: Icon(
-                    Mdi.progressCheck,
+                    Mdi.checkboxMarkedCircleOutline,
                   ),
                 ),
                 SizedBox(
@@ -104,7 +106,7 @@ class _SearchPageState extends State<SearchPage> {
                 Text("UiD"),
               ],
             ),
-            backgroundColor: Colors.black,
+            backgroundColor: AppTheme.accentColor,
           ),
         ],
       ),
@@ -153,8 +155,17 @@ class _SearchPageState extends State<SearchPage> {
   _buildAppBar() {
     return AppBar(
       elevation: 0,
-      backgroundColor: Theme.of(context).canvasColor,
+      backgroundColor: AppTheme.accentColor,
       automaticallyImplyLeading: false,
+      leading: IconButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        icon: Icon(
+          Mdi.menuLeftOutline,
+          color: AppTheme.iconColor,
+        ),
+      ),
       title: TextField(
         autofocus: true,
         autocorrect: false,
@@ -170,7 +181,7 @@ class _SearchPageState extends State<SearchPage> {
         IconButton(
           onPressed: _queryData,
           icon: Icon(
-            Mdi.shieldSearch,
+            Mdi.searchWeb,
             color: AppTheme.iconColor,
           ),
         ),

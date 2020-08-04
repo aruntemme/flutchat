@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:mdi/mdi.dart';
 import 'package:flutchat/consts/theme.dart';
 import 'package:flutchat/data/sharedPrefs.dart';
@@ -11,10 +12,8 @@ import 'package:flutchat/message/message.dart';
 import 'package:flutchat/message/messagePage.dart';
 import 'package:flutchat/message/messageRepo.dart';
 import 'package:flutchat/user/user.dart';
-import 'package:flutchat/user/userInfoPage.dart';
 import 'groupModel.dart';
 import 'package:flutchat/Layout/BottomNavBar.dart';
-import './Layout/DrawerBuilder.dart';
 import 'package:shimmer/shimmer.dart';
 import './message/searchPage.dart';
 import 'appData.dart';
@@ -53,84 +52,33 @@ class _MainPageState extends State<MainPage> {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: AppTheme.defaultColor,
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
-      drawer: DrawerBuilder(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => SearchPage()));
+        },
+        tooltip: 'Increment',
+        child: Icon(
+          Mdi.accountSearch,
+          color: AppTheme.iconColor,
+        ),
+        elevation: 2.0,
+      ),
       bottomNavigationBar: BottomNavBar(),
       appBar: AppBar(
         backgroundColor: Theme.of(context).accentColor,
         elevation: 0,
+        centerTitle: true,
         title: Text(
           "FlutChat",
           style: TextStyle(
-              fontWeight: FontWeight.w600, fontSize: 16, color: Colors.black),
+              fontWeight: FontWeight.w700, fontSize: 18, color: Colors.black),
         ),
-        leading: IconButton(
-          icon: Icon(
-            Mdi.menuRightOutline,
-            color: AppTheme.iconColor,
-          ),
-          onPressed: () {
-            scaffoldKey.currentState.openDrawer();
-          },
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.search,
-              color: AppTheme.iconColor,
-            ),
-            onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => SearchPage()));
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(1.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(120.0),
-              child: Container(
-                height: 0.06 * height,
-                width: 0.06 * height,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(120.0),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned.fill(
-                          child: ValueListenableBuilder(
-                            valueListenable: userData,
-                            builder: (context, User value, child) {
-                              return Hero(
-                                tag: 'userImage',
-                                child: Container(
-                                  //color: Theme.of(context).cardColor,
-                                  child: Icon(
-                                    Icons.person,
-                                    color: AppTheme.iconColor,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        Positioned.fill(
-                          child: Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => UserInfo(),
-                                ));
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
-              ),
-            ),
-          ),
-        ],
+        leading: Container(),
       ),
       body: _getMainWidget(),
     );
@@ -242,6 +190,7 @@ class _MainPageState extends State<MainPage> {
                     width: double.infinity,
                     height: 0.1 * height,
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
                       color: _getNewMessageColor(message),
                     ),
                     child: Stack(
@@ -283,8 +232,8 @@ class _MainPageState extends State<MainPage> {
                                       borderRadius:
                                           BorderRadius.circular(120.0),
                                       child: Container(
-                                        height: 0.06 * height,
-                                        width: 0.06 * height,
+                                        height: 0.07 * height,
+                                        width: 0.07 * height,
                                         child: CachedNetworkImage(
                                           imageUrl:
                                               user != null ? user.imageUrl : '',
@@ -306,6 +255,9 @@ class _MainPageState extends State<MainPage> {
                                     ),
                                   ),
                                 ),
+                              ),
+                              SizedBox(
+                                width: 5.0,
                               ),
                               Expanded(
                                 child: GestureDetector(
@@ -347,6 +299,17 @@ class _MainPageState extends State<MainPage> {
                                     ],
                                   ),
                                 ),
+                              ),
+                              Text(
+                                DateFormat.jm().format(message.date).toString(),
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w200,
+                                    fontSize: 12,
+                                    color: AppTheme.textColor),
+                              ),
+                              SizedBox(
+                                width: 15,
                               )
                             ],
                           ),
@@ -367,7 +330,7 @@ class _MainPageState extends State<MainPage> {
 
   _getNewMessageColor(Message message) {
     if (message.idFrom == currentUid) {
-      return Theme.of(context).canvasColor;
+      return AppTheme.defaultColor;
     } else {
       if (message.isSeen) return Theme.of(context).canvasColor;
       return AppTheme.mainColor.withOpacity(0.5);
@@ -400,8 +363,10 @@ class _MainPageState extends State<MainPage> {
         width: double.infinity,
         height: 0.1 * height,
         decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-        ),
+            border: Border.all(),
+            color: AppTheme.accentColor,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         child: Stack(
           children: <Widget>[
             Positioned.fill(
@@ -493,9 +458,9 @@ class _MainPageState extends State<MainPage> {
     return ListView.separated(
       separatorBuilder: (context, index) {
         return Container(
-          height: 1,
+          height: 0.5,
           width: double.infinity,
-          color: Theme.of(context).cardColor,
+          color: AppTheme.defaultColor,
         );
       },
       itemBuilder: (context, index) {

@@ -45,7 +45,6 @@ class AppTheme {
     mainColor = color;
     primarySwatch = color;
     linkColor = color;
-    defaultColor = color;
     isSeen = color;
   }
 
@@ -54,7 +53,7 @@ class AppTheme {
     defaultColor = Colors.black;
     textColor = Colors.white;
     canvasColor = Colors.black;
-    iconColor = Colors.black;
+    iconColor = Colors.white;
     sendMessageTextColor = Colors.white;
     receivedMessageTextColor = Colors.white;
     receivedTimeColor = Colors.white;
@@ -67,7 +66,7 @@ class AppTheme {
 
   static toLightMode() {
     brightness = Brightness.light;
-    defaultColor = Colors.black;
+    defaultColor = Colors.white;
     textColor = Colors.black;
     canvasColor = Colors.white;
     iconColor = Colors.black;

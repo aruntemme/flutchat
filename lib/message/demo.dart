@@ -19,29 +19,20 @@ class _DemoPageState extends State<DemoPage> {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     return Container(
-      color: Theme.of(context).canvasColor,
+      color: AppTheme.defaultColor,
       child: Stack(
         children: <Widget>[
-          Positioned.fill(
-            child: Shimmer.fromColors(
-                direction: ShimmerDirection.ltr,
-                period: Duration(seconds: 5),
-                child: Container(
-                  color: Colors.red,
-                ),
-                baseColor: AppTheme.shimmerBaseColor,
-                highlightColor: AppTheme.shimmerEndingColor),
-          ),
           Positioned.fill(
             child: Column(
               children: <Widget>[
                 Spacer(),
-                /* Center(
+                Center(
                   child: Text(
                     "Demo",
-                    style: GoogleFonts.abrilFatface(fontSize: 25),
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
-                ), */
+                ),
+                Spacer(),
                 _buildSentMessage(false, 'Unseen sent message', '4:11 PM'),
                 _getReceivedMessage('Received message', '4:12 PM'),
                 _buildSentMessage(true, 'Seen sent message', '4:13 PM'),
@@ -52,8 +43,8 @@ class _DemoPageState extends State<DemoPage> {
                   child: Text(
                     "Try sending a message...",
                     style: TextStyle(
-                        fontSize: 25,
-                        fontFamily: GoogleFonts.poiretOne().fontFamily),
+                      fontSize: 25,
+                    ),
                   ),
                 ),
                 Spacer(),

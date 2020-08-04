@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutchat/Layout/infoDialog.dart';
+import 'package:flutchat/data/sharedPrefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutchat/user/UserRepo.dart';
 import 'package:flutchat/user/user.dart';
+import 'package:flutter_clipboard_manager/flutter_clipboard_manager.dart';
 import 'storage.dart';
 import '../consts/theme.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../appData.dart';
 
 class EditProfileBuilder extends StatefulWidget {
@@ -29,8 +31,77 @@ class _EditProfileBuilderState extends State<EditProfileBuilder> {
 
   UserRepo userRepo = UserRepo();
 
+  var uid;
+
+  _getUId() {
+    dynamic val = sharedPrefs.getValueFromSharedPrefs("uid");
+    this.uid = val;
+  }
+
+  _buildBottomPage() {
+    return Padding(
+      padding: EdgeInsets.all(20.0),
+      child: Container(
+        height: 0.2 * height,
+        child: Card(
+          elevation: 0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          color: AppTheme.mainColor.withOpacity(0.3),
+          child: Stack(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  icon: Icon(Icons.info),
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => InfoDialog());
+                  },
+                ),
+              ),
+              Positioned(
+                bottom: 5,
+                right: 5,
+                child: FloatingActionButton(
+                  child: Icon(Icons.content_copy),
+                  onPressed: () {
+                    FlutterClipboardManager.copyToClipBoard(user.uid)
+                        .then((result) {
+                      final snackBar = SnackBar(
+                        content: Text('Copied to Clipboard'),
+                        action: SnackBarAction(
+                          label: 'Undo',
+                          onPressed: () {},
+                        ),
+                      );
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    });
+                  },
+                ),
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SelectableText(
+                    user.uid,
+                    style: TextStyle(
+                        fontSize: 25, fontFamily: AppTheme.fontFamily),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
+    _getUId();
     user = User.fromSnapshot(widget.snapshot);
     userName = user.userName;
     userEmail = user.email;
@@ -57,9 +128,9 @@ class _EditProfileBuilderState extends State<EditProfileBuilder> {
           '------------------- value of image is loading [$value] ------------------ ');
       if (value) {
         _showSnackBar(
-            "Updating the image may take a while according to the size of the image selected.");
+            "Uploading the image may take a while according to the size of the image selected.");
       } else {
-        _showSnackBar("Updated the image");
+        _showSnackBar("Image Uploaded");
       }
       setState(() {
         isImageLoading = value;
@@ -112,6 +183,7 @@ class _EditProfileBuilderState extends State<EditProfileBuilder> {
 
   _buildForm() {
     return Container(
+      color: AppTheme.defaultColor,
       height: 0.525 * height,
       child: Form(
         key: _formKey,
@@ -151,6 +223,7 @@ class _EditProfileBuilderState extends State<EditProfileBuilder> {
               ),
             ),
             Spacer(),
+            _buildBottomPage(),
             _buildButton(),
             SizedBox(
               height: 0.05 * height,
@@ -206,6 +279,7 @@ class _EditProfileBuilderState extends State<EditProfileBuilder> {
 
   _buildTopWidget() {
     return Container(
+      color: AppTheme.accentColor,
       child: Stack(
         children: <Widget>[
           Align(

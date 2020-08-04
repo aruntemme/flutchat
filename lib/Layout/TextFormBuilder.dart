@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutchat/consts/theme.dart';
 
+// ignore: must_be_immutable
 class TextFormBuilder extends StatelessWidget {
   String hintText;
   Function validator;
@@ -66,7 +66,6 @@ class TextFormBuilder extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(color: Colors.black)),
           ),
-          
         ),
       ),
     );

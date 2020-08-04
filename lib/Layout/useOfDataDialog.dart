@@ -11,7 +11,7 @@ class UseOfDataDialog extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(15.0),
           child: Container(
-            color: Theme.of(context).cardColor,
+            color: AppTheme.defaultColor,
             child: Column(
               children: <Widget>[
                 AppBar(
@@ -19,7 +19,7 @@ class UseOfDataDialog extends StatelessWidget {
                   centerTitle: true,
                   automaticallyImplyLeading: false,
                   title: Text(
-                    "How do we use your data?",
+                    "How your data is used?",
                     style: TextStyle(fontWeight: FontWeight.w800),
                   ),
                 ),
@@ -41,7 +41,7 @@ class UseOfDataDialog extends StatelessWidget {
           style: TextStyle(
               fontFamily: AppTheme.fontFamily, color: AppTheme.textColor),
           children: [
-            TextSpan(text: 'The data we take from a user are : \n\n'),
+            TextSpan(text: 'The data we taken from user are : \n\n'),
             TextSpan(
               text: 'UserName\nE-mail\nProfile Photo\n\n',
               style: TextStyle(
@@ -50,10 +50,14 @@ class UseOfDataDialog extends StatelessWidget {
             ),
             TextSpan(
                 text:
-                    'These data fields are general and no private information is gathered. The permissions this app uses are :\n\n'),
+                    'These data fields are general and no private information is gathered.\n\n'),
             TextSpan(
-              text: '1) Internet\n2) Storage - to send images',
+              text: ' The permissions this app uses are :\n\n',
               style: TextStyle(fontWeight: FontWeight.w900),
+            ),
+            TextSpan(
+              text:
+                  '1) Internet\n2) Storage - to send images & Upload Profile Pic',
             ),
           ]),
     );

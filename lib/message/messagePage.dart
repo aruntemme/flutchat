@@ -13,8 +13,6 @@ import 'package:flutchat/message/messageRepo.dart';
 import 'package:flutchat/user/storage.dart';
 import 'package:flutchat/user/user.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:shimmer/shimmer.dart';
 
 class MessagePage extends StatefulWidget {
   final GroupModel model;
@@ -113,6 +111,7 @@ class _MessagePageState extends State<MessagePage>
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     return Scaffold(
+        backgroundColor: AppTheme.defaultColor,
         key: scaffoldKey,
         floatingActionButton: Visibility(
           visible: showGoToTopFab,
@@ -138,6 +137,7 @@ class _MessagePageState extends State<MessagePage>
           title: Hero(
             tag: widget.user.userName,
             child: Material(
+              color: AppTheme.accentColor,
               child: Text(
                 "${widget.user.userName}",
                 overflow: TextOverflow.ellipsis,
@@ -148,7 +148,7 @@ class _MessagePageState extends State<MessagePage>
               ),
             ),
           ),
-          backgroundColor: Theme.of(context).canvasColor,
+          backgroundColor: AppTheme.accentColor,
           elevation: 0,
           automaticallyImplyLeading: false,
           actions: <Widget>[
@@ -253,8 +253,13 @@ class _MessagePageState extends State<MessagePage>
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-                height: 60,
-                color: Colors.black12,
+                height: 70,
+                decoration: BoxDecoration(
+                    border: Border.all(),
+                    color: Color.fromARGB(60, 255, 255, 255),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20))),
                 child: Row(
                   children: <Widget>[
                     Expanded(
@@ -290,7 +295,7 @@ class _MessagePageState extends State<MessagePage>
                         tooltip: 'Send a photo',
                         icon: Icon(
                           MdiIcons.googlePhotos,
-                          color: photoColor,
+                          color: AppTheme.accentColor,
                         ),
                         onPressed: _onPressedPhotoIcon,
                       ),

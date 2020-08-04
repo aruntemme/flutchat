@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutchat/user/userInfoPage.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:mdi/mdi.dart';
@@ -31,9 +32,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
     user = await mainRepo
         .getUserFromUid(sharedPrefs.getValueFromSharedPrefs('uid'));
     setUser(user);
-    // setState(() {
-    //   isLoading = false;
-    // });
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -47,25 +48,118 @@ class _BottomNavBarState extends State<BottomNavBar> {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     return BottomAppBar(
-      elevation: 0,
+      shape: CircularNotchedRectangle(),
+      elevation: 5,
       color: AppTheme.accentColor,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.0),
-        height: 56.0,
+        height: 55,
         child: Row(children: <Widget>[
           IconButton(
             onPressed: showMenu,
-            icon: Icon(Icons.menu),
+            icon: Icon(Mdi.menuUpOutline),
             color: AppTheme.iconColor,
           ),
           Spacer(),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.search),
-            color: AppTheme.iconColor,
-          )
+          Padding(
+              padding: const EdgeInsets.all(1.0),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(120.0),
+                  child: Container(
+                      height: 0.06 * height,
+                      width: 0.06 * height,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(120.0),
+                          child: Stack(children: <Widget>[
+                            Positioned.fill(
+                              child: ValueListenableBuilder(
+                                valueListenable: userData,
+                                builder: (context, User value, child) {
+                                  return Hero(
+                                    tag: 'userImage',
+                                    child: Container(
+                                      //color: Theme.of(context).cardColor,
+                                      child: Icon(
+                                        Mdi.accountEditOutline,
+                                        color: AppTheme.iconColor,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Positioned.fill(
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) => EditProfile(),
+                                    ));
+                                  },
+                                ),
+                              ),
+                            )
+                          ])))))
+          // IconButton(
+          //   onPressed: () {
+          //     Navigator.of(context).push(MaterialPageRoute(
+          //       builder: (context) => UserInfo(),
+          //     ));
+          //   },
+          //   icon: Icon(Icons.person),
+          //   color: AppTheme.iconColor,
+          // )
         ]),
       ),
+    );
+  }
+
+  _buildAboutTile(BuildContext context) {
+    return ListTile(
+      leading: Icon(
+        Mdi.informationOutline,
+        color: AppTheme.iconColor,
+      ),
+      title: Text('About'),
+      onTap: () {
+        showAboutDialog(
+            context: context,
+            applicationIcon: Image.asset(
+              'assets/msg.png',
+              height: 50.0,
+              width: 50.0,
+            ),
+            children: [
+              SizedBox(
+                height: 30.0,
+              ),
+              Text(
+                  "Copyright 2020 Arun. All rights reserved.* Redistributions of source code must retain the above copyrightnotice, this list of conditions and the following disclaimer.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS")
+            ],
+            applicationName: 'FlutChat',
+            applicationVersion: '0.0.1 (Beta version)',
+            applicationLegalese: '@2020 Arun');
+      },
+    );
+  }
+
+  ListTile _buildThemeSettingsTile(BuildContext context) {
+    return ListTile(
+      title: Text(
+        "Themes",
+        style: TextStyle(color: AppTheme.textColor),
+      ),
+      leading: Icon(
+        MdiIcons.themeLightDark,
+        color: AppTheme.iconColor,
+      ),
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ThemeSettingsPage(),
+        ));
+      },
     );
   }
 
@@ -97,14 +191,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
                           overflow: Overflow.visible,
                           children: <Widget>[
                             Positioned(
-                              top: -36,
+                              top: -50,
                               child: Container(
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(120)),
                                     border: Border.all(
-                                        color: AppTheme.accentColor,
-                                        width: 10)),
+                                        color: AppTheme.accentColor, width: 5)),
                                 child: Center(
                                   child: GestureDetector(
                                     onTap: () {
@@ -123,93 +216,80 @@ class _BottomNavBarState extends State<BottomNavBar> {
                             ),
                             Positioned(
                               child: ListView(
-                                physics: NeverScrollableScrollPhysics(),
+                                // physics: NeverScrollableScrollPhysics(),
                                 children: <Widget>[
-                                  ListTile(
-                                    title: Text(
-                                      "Inbox",
-                                      style:
-                                          TextStyle(color: AppTheme.textColor),
-                                    ),
-                                    leading: Icon(
-                                      Icons.inbox,
-                                      color: AppTheme.textColor,
-                                    ),
-                                    onTap: () {},
+                                  SizedBox(
+                                    height: 28,
                                   ),
                                   ListTile(
                                     title: Text(
-                                      "Starred",
-                                      style:
-                                          TextStyle(color: AppTheme.textColor),
-                                    ),
-                                    leading: Icon(
-                                      Icons.star_border,
-                                      color: AppTheme.textColor,
+                                      '${user != null ? user.userName : ''}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: AppTheme.textColor,
+                                      ),
                                     ),
                                     onTap: () {},
                                   ),
+                                  Divider(),
+                                  _buildThemeSettingsTile(context),
+                                  Divider(),
+                                  _buildAboutTile(context),
+                                  Divider(),
                                   ListTile(
-                                    title: Text(
-                                      "Sent",
-                                      style:
-                                          TextStyle(color: AppTheme.textColor),
-                                    ),
                                     leading: Icon(
-                                      Icons.send,
-                                      color: AppTheme.textColor,
+                                      Mdi.logout,
+                                      color: AppTheme.iconColor,
                                     ),
-                                    onTap: () {},
+                                    title: Text("Sign out"),
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (context) =>
+                                            SignOutConfirmationDialog(),
+                                      );
+                                    },
                                   ),
+                                  Divider(),
                                   ListTile(
-                                    title: Text(
-                                      "Trash",
-                                      style:
-                                          TextStyle(color: AppTheme.textColor),
-                                    ),
                                     leading: Icon(
-                                      Icons.delete_outline,
-                                      color: AppTheme.textColor,
+                                      Mdi.bugCheckOutline,
+                                      color: AppTheme.iconColor,
                                     ),
-                                    onTap: () {},
+                                    title: Text('Found bugs? Ping me'),
+                                    subtitle: Text(
+                                        'Include screenshot with a well detailed description'),
+                                    onTap: () {
+                                      _launchURL(
+                                          "arungauthamk@gmail.com",
+                                          "Suggestion of an feature / Reporting bugs",
+                                          "Type Here...");
+                                    },
                                   ),
-                                  ListTile(
-                                    title: Text(
-                                      "Spam",
-                                      style:
-                                          TextStyle(color: AppTheme.textColor),
-                                    ),
-                                    leading: Icon(
-                                      Icons.error,
-                                      color: AppTheme.textColor,
-                                    ),
-                                    onTap: () {},
-                                  ),
-                                  ListTile(
-                                    title: Text(
-                                      "Drafts",
-                                      style:
-                                          TextStyle(color: AppTheme.textColor),
-                                    ),
-                                    leading: Icon(
-                                      Icons.mail_outline,
-                                      color: AppTheme.textColor,
-                                    ),
-                                    onTap: () {},
-                                  ),
+                                  Divider(),
                                 ],
                               ),
                             )
                           ],
                         ))),
                 Container(
-                  height: 56,
-                  color: Color(0xff4a6572),
+                  height: 20,
+                  color: AppTheme.defaultColor,
                 )
               ],
             ),
           );
         });
+  }
+
+  _launchURL(String toMailId, String subject, String body) async {
+    var url = 'mailto:$toMailId?subject=$subject&body=$body';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   _buildUserImage(BuildContext context) {

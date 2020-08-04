@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutchat/consts/theme.dart';
+import 'package:flutter/material.dart';
 
 class InfoDialog extends StatelessWidget {
   @override
@@ -12,7 +12,7 @@ class InfoDialog extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(15.0),
           child: Container(
-            color: Theme.of(context).cardColor,
+            color: AppTheme.defaultColor,
             child: Column(
               children: <Widget>[
                 AppBar(
