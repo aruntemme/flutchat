@@ -6,7 +6,6 @@ import './auth/signUp.dart';
 import 'data/sharedPrefs.dart';
 import 'package:flutter/services.dart';
 import './consts/theme.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   GoogleFonts.config.allowRuntimeFetching = true;

@@ -8,12 +8,12 @@ import 'package:flutchat/consts/theme.dart';
 import 'package:flutchat/message/message.dart';
 import 'package:flutchat/message/messagePage.dart';
 import 'package:flutchat/message/messageRepo.dart';
+import 'package:flutchat/data/sharedPrefs.dart';
+import 'package:flutchat/mainRepo.dart';
 import 'package:flutchat/user/user.dart';
 import 'groupModel.dart';
 import 'package:flutchat/Layout/BottomNavBar.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:flutchat/data/sharedPrefs.dart';
-import 'package:flutchat/mainRepo.dart';
 import 'package:flutchat/message/imageFullScreen.dart';
 
 import './message/searchPage.dart';
