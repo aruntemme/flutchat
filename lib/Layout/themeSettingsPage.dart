@@ -5,6 +5,10 @@ import 'package:flutchat/consts/theme.dart';
 import 'package:flutchat/data/sharedPrefs.dart';
 import 'package:mdi/mdi.dart';
 
+import '../consts/theme.dart';
+import '../consts/theme.dart';
+import '../consts/theme.dart';
+
 class ThemeSettingsPage extends StatefulWidget {
   @override
   _ThemeSettingsPageState createState() => _ThemeSettingsPageState();
@@ -76,60 +80,63 @@ class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
         ),
         elevation: 0,
         centerTitle: true,
-        backgroundColor: Theme.of(context).cardColor,
+        backgroundColor: AppTheme.accentColor,
         title: Text(
           'Theme Settings',
           style: TextStyle(color: AppTheme.iconColor),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _buildPrimaryColorSelector(),
-          SwitchListTile(
-            activeColor: AppTheme.mainColor,
-            title: Text(
-              "Dark Mode",
-              style: TextStyle(color: AppTheme.textColor),
-            ),
-            value: isDarkModeOpened,
-            onChanged: (value) {
-              setState(() {
-                isDarkModeOpened = value;
-                _changeValueOfDarkModeInSharedPrefs(value);
-                changeBrightness(value);
-              });
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: DropdownButtonFormField(
-              hint: Text('Select a font'),
-              value: dropDownValue != null ? dropDownValue : null,
+      body: Container(
+        color: AppTheme.defaultColor,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildPrimaryColorSelector(),
+            SwitchListTile(
+              activeColor: AppTheme.mainColor,
+              title: Text(
+                "Dark Mode",
+                style: TextStyle(color: AppTheme.textColor),
+              ),
+              value: isDarkModeOpened,
               onChanged: (value) {
-                print(" value changed to $value");
                 setState(() {
-                  dropDownValue = value;
-                  changeFont(value);
-                  _changeValueOfFontFamilyInSharedPrefs(value);
+                  isDarkModeOpened = value;
+                  _changeValueOfDarkModeInSharedPrefs(value);
+                  changeBrightness(value);
                 });
               },
-              items: fontList.map((e) {
-                return DropdownMenuItem(
-                  value: e.values.toList()[0],
-                  child: Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        e.keys.toList()[0],
-                        style: TextStyle(
-                            fontFamily: e.values.toList()[0],
-                            color: AppTheme.textColor),
-                      )),
-                );
-              }).toList(),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DropdownButtonFormField(
+                hint: Text('Select a font'),
+                value: dropDownValue != null ? dropDownValue : null,
+                onChanged: (value) {
+                  print(" value changed to $value");
+                  setState(() {
+                    dropDownValue = value;
+                    changeFont(value);
+                    _changeValueOfFontFamilyInSharedPrefs(value);
+                  });
+                },
+                items: fontList.map((e) {
+                  return DropdownMenuItem(
+                    value: e.values.toList()[0],
+                    child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          e.keys.toList()[0],
+                          style: TextStyle(
+                              fontFamily: e.values.toList()[0],
+                              color: AppTheme.textColor),
+                        )),
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -151,7 +158,7 @@ class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
 
   _buildPrimaryColorSelector() {
     return Container(
-      color: Theme.of(context).cardColor,
+      color: AppTheme.defaultColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -170,24 +177,24 @@ class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                _buildColorTile(Colors.blue, 0, () {
+                _buildColorTile(Colors.deepPurpleAccent, 0, () {
                   setState(() {
                     currentColorIndex = 0;
-                    changeColor(Colors.blue);
+                    changeColor(Colors.deepPurple);
                     _changeValueOfMainColorInSharedPrefs(0);
                   });
                 }),
-                _buildColorTile(Colors.teal, 1, () {
+                _buildColorTile(Colors.green, 1, () {
                   setState(() {
                     currentColorIndex = 1;
-                    changeColor(Colors.teal);
+                    changeColor(Colors.green);
                     _changeValueOfMainColorInSharedPrefs(1);
                   });
                 }),
-                _buildColorTile(Colors.deepOrange, 2, () {
+                _buildColorTile(Colors.red, 2, () {
                   setState(() {
                     currentColorIndex = 2;
-                    changeColor(Colors.deepOrange);
+                    changeColor(Colors.red);
                     _changeValueOfMainColorInSharedPrefs(2);
                   });
                 }),

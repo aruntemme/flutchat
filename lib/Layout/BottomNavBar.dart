@@ -58,7 +58,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           IconButton(
             onPressed: showMenu,
             icon: Icon(Mdi.menuUpOutline),
-            color: AppTheme.iconColor,
+            color: AppTheme.iconHome,
           ),
           Spacer(),
           Padding(
@@ -81,7 +81,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                       //color: Theme.of(context).cardColor,
                                       child: Icon(
                                         Mdi.accountEditOutline,
-                                        color: AppTheme.iconColor,
+                                        color: AppTheme.iconHome,
                                       ),
                                     ),
                                   );
@@ -102,15 +102,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
                               ),
                             )
                           ])))))
-          // IconButton(
-          //   onPressed: () {
-          //     Navigator.of(context).push(MaterialPageRoute(
-          //       builder: (context) => UserInfo(),
-          //     ));
-          //   },
-          //   icon: Icon(Icons.person),
-          //   color: AppTheme.iconColor,
-          // )
         ]),
       ),
     );
@@ -136,7 +127,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 height: 30.0,
               ),
               Text(
-                  "Copyright 2020 Arun. All rights reserved.* Redistributions of source code must retain the above copyrightnotice, this list of conditions and the following disclaimer.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS")
+                  "Copyright 2020 Arun. All rights reserved.* Redistributions of source code must retain the above copyrightnotice, this list of conditions and the following disclaimer.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS\n\n             Made with 💛 by Arun")
             ],
             applicationName: 'FlutChat',
             applicationVersion: '0.0.1 (Beta version)',

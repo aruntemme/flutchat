@@ -65,7 +65,7 @@ class _MainPageState extends State<MainPage> {
         tooltip: 'Increment',
         child: Icon(
           Mdi.accountSearch,
-          color: AppTheme.iconColor,
+          color: AppTheme.iconHome,
         ),
         elevation: 2.0,
       ),

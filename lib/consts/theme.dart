@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutchat/data/strings.dart';
@@ -7,6 +5,7 @@ import 'package:flutchat/data/strings.dart';
 class AppTheme {
   static Color textColor = Colors.black;
   static Color iconColor = Colors.black;
+  static Color iconHome = Colors.black;
   static Brightness brightness = Brightness.light;
 
   static Color accentColor = Colors.blue;
@@ -54,6 +53,7 @@ class AppTheme {
     textColor = Colors.white;
     canvasColor = Colors.black;
     iconColor = Colors.white;
+    iconHome = Colors.black;
     sendMessageTextColor = Colors.white;
     receivedMessageTextColor = Colors.white;
     receivedTimeColor = Colors.white;
@@ -70,6 +70,7 @@ class AppTheme {
     textColor = Colors.black;
     canvasColor = Colors.white;
     iconColor = Colors.black;
+    iconHome = Colors.black;
     sendMessageTextColor = Colors.black;
     receivedTimeColor = Colors.grey;
     shimmerBaseColor = Colors.grey[300];
