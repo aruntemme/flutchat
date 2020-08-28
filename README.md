@@ -52,12 +52,12 @@ flutter build appbundle
 flutter doctor
 ```
 
-For help getting started with Flutter, check [online documentation](https://flutter.dev/docs), which offers great tutorials, samples, guidance on mobile development, and a full API reference. If you run into any issue or question, feel free to reach out to us via email akuro787898@gmail.com.
+For help getting started with Flutter, check [online documentation](https://flutter.dev/docs), which offers great tutorials, samples, guidance on mobile development, and a full API reference.
 
 
 ## Authors
 
->  [**Arun K **](https://github.com/aruntemme) 
+>  [Arun K ](https://github.com/aruntemme) 
 ![Made with 💛 in India](https://madewithlove.org.in/badge.svg)
 
 ## Feel Free to Contract
